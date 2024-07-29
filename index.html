@@ -32,8 +32,57 @@
         </div>
         <div class="add-book">
           <dialog>
-            <button autofocus>Close</button>
-            <p>This modal dialog has a groovy backdrop!</p>
+            <div id="add-book-container">
+              <form action method="get" id="add-book-form">
+                <fieldset>
+                  <legend>Add a New Book</legend>
+                  <div id="input-title">
+                    <input
+                      type="text"
+                      id="title"
+                      name="title"
+                      placeholder="Title"
+                      pattern="^[^0-9]+$"
+                      size="15"
+                      maxlength="245"
+                      required
+                    />
+                    <label for="title">Title</label>
+                  </div>
+                  <div id="input-author">
+                    <input
+                      type="text"
+                      id="author"
+                      name="author"
+                      placeholder="Author"
+                      size="15"
+                      maxlength="245"
+                      required
+                    />
+                    <label for="author">Author</label>
+                  </div>
+                  <div id="input-pages">
+                    <input
+                      type="number"
+                      id="pages"
+                      name="pages"
+                      pattern="^[1-9]\d*$"
+                      placeholder="# of Pages"
+                      size="15"
+                      maxlength="245"
+                      required
+                    />
+                    <label for="pages"># of Pages</label>
+                  </div>
+                  <div id="read-option">
+                    <input type="checkbox" id="read" name="read" />
+                    <p>Book already read</p>
+                  </div>
+                </fieldset>
+              </form>
+              <button autofocus id="add-button">Add</button>
+              <button autofocus id="close-button">Close</button>
+            </div>
           </dialog>
           <button><span>NEW BOOK</span></button>
         </div>

@@ -18,6 +18,7 @@ body {
   --book-color: #9bb0e6;
   --search-border-color: gray;
   --search-color: gray;
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 img,
@@ -63,7 +64,7 @@ h6 {
   grid-template-columns: 1fr;
   grid-template-rows: 100px 1fr;
   text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--box-shadow);
 }
 
 #library .header {
@@ -133,4 +134,79 @@ button {
 
 button span {
   font-size: 13px;
+}
+
+::backdrop {
+  background-color: white;
+  opacity: 0.75;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80lvh;
+}
+
+dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  box-shadow: var(--box-shadow);
+}
+
+fieldset {
+  border: none;
+}
+
+legend {
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 2;
+}
+
+input {
+  padding: 15px 5px 6px;
+  margin: 10px 15px;
+  width: 80%;
+}
+
+#add-book-container input:focus + label,
+#add-book-container input[required]:valid + label,
+#add-book-container input:not(:placeholder-shown) + label {
+  display: block;
+}
+
+#add-book-container label {
+  padding: 5px 0;
+  font-size: clamp(7px, 1vw, 10px);
+  left: 0;
+  display: none;
+  position: absolute;
+  color: gray;
+  z-index: 10;
+  top: 10px;
+  left: 23px;
+}
+:focus {
+  outline: 0;
+}
+
+#add-book-container div[id^="input"] {
+  position: relative;
+  min-height: 1px;
+  width: 100%;
+}
+#read-option {
+  display: flex;
+  align-items: center;
+}
+
+#read-option p {
+  color: gray;
+}
+
+#read-option input {
+  width: 20px;
 }
