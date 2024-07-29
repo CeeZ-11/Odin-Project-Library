@@ -73,7 +73,7 @@ h6 {
   background-color: var(--lib-head-bg-color);
 }
 
-#library .content {
+#library #content {
   grid-area: 2/ 1/ 3/ 2;
   background-color: var(--lib-bg-color);
   border-right: 2px solid var(--lib-border-color);
@@ -83,8 +83,10 @@ h6 {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   grid-auto-flow: row;
+  overflow-y: scroll;
 }
 .books {
+  padding: 10px;
   border: 5px solid white;
   border-radius: 5%;
   background-color: var(--book-bg-color);

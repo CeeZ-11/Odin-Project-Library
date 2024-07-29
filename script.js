@@ -1,4 +1,4 @@
-const myLibrary = [];
+const myLibrary = {};
 
 function Book(title, author, pages, read) {
   // the constructor...
@@ -16,26 +16,88 @@ function addBookToLibrary() {
   const read = document.getElementById("read").checked;
 
   const book = new Book(title, author, pages, read);
-  myLibrary.push(book);
+  myLibrary[title] = book;
   console.log("Book added:", book);
 
-  const dialog = document.querySelector("dialog");
-  if (dialog) {
-    dialog.close();
+  clearForm();
+  closeDialog();
+  updateDisplay();
+}
+
+function clearForm() {
+  document.getElementById("title").value = "";
+  document.getElementById("author").value = "";
+  document.getElementById("pages").value = "";
+  document.getElementById("read").checked = false;
+}
+
+function updateDisplay() {
+  const contentDiv = document.getElementById("content");
+  const searchTerm = document.getElementById("searchBox").value.toLowerCase();
+
+  contentDiv.innerHTML = "";
+
+  for (const title in myLibrary) {
+    if (myLibrary.hasOwnProperty(title)) {
+      const book = myLibrary[title];
+      if (book.title.toLowerCase().includes(searchTerm)) {
+        const bookDiv = document.createElement("div");
+        bookDiv.classList.add("books");
+        bookDiv.innerHTML = `
+          <p><strong>Title:</strong> ${book.title}</p>
+          <p><strong>Author:</strong> ${book.author}</p>
+          <p><strong>Pages:</strong> ${book.pages}</p>
+          <p><strong>Read:</strong> ${book.read ? "Yes" : "No"}</p>
+          <button onclick="updateRead('${book.title}')">Update Read</button>
+          <button onclick="removeBook('${book.title}')">Remove</button>
+        `;
+        contentDiv.appendChild(bookDiv);
+      }
+    }
   }
 }
 
-const dialog = document.querySelector("dialog");
-const addButton = document.getElementById("add-button");
-const showButton = document.querySelector("dialog + button");
-const closeButton = document.getElementById("close-button");
+function updateRead(title) {
+  const book = myLibrary[title];
+  if (book) {
+    book.read = !book.read;
+    console.log("Book updated:", book);
+    updateDisplay();
+  }
+}
 
-showButton.addEventListener("click", () => {
+function removeBook(title) {
+  delete myLibrary[title];
+  updateDisplay();
+}
+
+function setupEventListeners() {
+  const addButton = document.getElementById("add-button");
+  const showButton = document.querySelector("dialog + button");
+  const closeButton = document.getElementById("close-button");
+  const searchBox = document.getElementById("searchBox");
+
+  // Set up event listeners with separate functions
+  showButton.addEventListener("click", showDialog);
+  closeButton.addEventListener("click", closeDialog);
+  searchBox.addEventListener("input", updateDisplay);
+  addButton.addEventListener("click", handleAddBook);
+}
+
+function showDialog() {
+  const dialog = document.querySelector("dialog");
   dialog.showModal();
-});
+}
 
-closeButton.addEventListener("click", () => {
+function closeDialog() {
+  const dialog = document.querySelector("dialog");
   dialog.close();
-});
+}
 
-addButton.addEventListener("click", addBookToLibrary);
+function handleAddBook() {
+  addBookToLibrary();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupEventListeners();
+});

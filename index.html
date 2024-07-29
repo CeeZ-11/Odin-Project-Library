@@ -26,6 +26,7 @@
           <input
             type="text"
             class="search-box"
+            id="searchBox"
             placeholder="Search a book..."
             data-search
           />
@@ -66,6 +67,9 @@
                       type="number"
                       id="pages"
                       name="pages"
+                      min="0"
+                      oninput="this.value = 
+ !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                       pattern="^[1-9]\d*$"
                       placeholder="# of Pages"
                       size="15"
@@ -87,17 +91,7 @@
           <button><span>NEW BOOK</span></button>
         </div>
       </div>
-      <div class="content">
-        <div class="books"></div>
-        <div class="books"></div>
-        <div class="books"></div>
-        <div class="books"></div>
-        <div class="books"></div>
-        <div class="books"></div>
-        <div class="books"></div>
-        <div class="books"></div>
-        <div class="books"></div>
-      </div>
+      <div id="content"></div>
     </div>
   </body>
 </html>
