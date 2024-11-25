@@ -75,17 +75,62 @@ class Book {
 
 const library = new Library();
 
-function addBookToLibrary() {
-  const title = document.getElementById("title").value;
-  const author = document.getElementById("author").value;
-  const pages = parseInt(document.getElementById("pages").value);
-  const read = document.getElementById("read").checked;
+function addBookToLibrary(event) {
+  const title = document.getElementById("title");
+  const author = document.getElementById("author");
+  const pages = document.getElementById("pages");
+  const form = document.getElementById("add-book-form");
 
-  const book = new Book(title, author, pages, read);
-  library.addBook(book);
+  // Prevent form submission for validation
+  event.preventDefault();
 
-  library.clearForm();
-  closeDialog();
+  // Clear previous error messages
+  clearErrorMessages();
+
+  // Validate the fields
+  let isValid = true;
+
+  if (!title.checkValidity()) {
+    showError(title, "Title is required and cannot be a number.");
+    isValid = false;
+  }
+
+  if (!author.checkValidity()) {
+    showError(author, "Author is required.");
+    isValid = false;
+  }
+
+  if (!pages.checkValidity() || pages.value <= 0) {
+    showError(pages, "Please enter a valid number of pages.");
+    isValid = false;
+  }
+
+  if (isValid) {
+    // If valid, create the book and add it to the library
+    const read = document.getElementById("read").checked;
+    const book = new Book(
+      title.value,
+      author.value,
+      parseInt(pages.value),
+      read
+    );
+    library.addBook(book);
+
+    // Clear the form and close the dialog
+    library.clearForm();
+    closeDialog();
+  }
+}
+
+function showError(inputElement, message) {
+  const errorElement = document.getElementById(`${inputElement.id}-error`);
+  errorElement.textContent = message;
+}
+function clearErrorMessages() {
+  const errorMessages = document.querySelectorAll(".error-message");
+  errorMessages.forEach((msg) => {
+    msg.textContent = "";
+  });
 }
 
 function setupEventListeners() {

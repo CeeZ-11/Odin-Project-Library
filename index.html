@@ -34,7 +34,7 @@
         <div class="add-book">
           <dialog>
             <div id="add-book-container">
-              <form action method="get" id="add-book-form">
+              <form id="add-book-form">
                 <fieldset>
                   <legend>Add a New Book</legend>
                   <div id="input-title">
@@ -49,6 +49,8 @@
                       required
                     />
                     <label for="title">Title</label>
+                    <span id="title-error" class="error-message"></span>
+                    <!-- Error message for title -->
                   </div>
                   <div id="input-author">
                     <input
@@ -61,6 +63,8 @@
                       required
                     />
                     <label for="author">Author</label>
+                    <span id="author-error" class="error-message"></span>
+                    <!-- Error message for author -->
                   </div>
                   <div id="input-pages">
                     <input
@@ -77,9 +81,11 @@
                       required
                     />
                     <label for="pages"># of Pages</label>
+                    <span id="pages-error" class="error-message"></span>
+                    <!-- Error message for pages -->
                   </div>
                   <div id="read-option">
-                    <input type="checkbox" id="read" name="read" />
+                    <input type="checkbox" id="read" name="read" required />
                     <p>Book already read</p>
                   </div>
                 </fieldset>
